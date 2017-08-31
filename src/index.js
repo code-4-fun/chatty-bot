@@ -18,11 +18,6 @@ const bot = new ViberBot(logger, {
     avatar: "https://raw.githubusercontent.com/devrelv/drop/master/151-icon.png" // Just a placeholder avatar to display the user
 });
 
-// The user will get those messages on first registration
-bot.onSubscribe(response => {
-    say(response, `Hi there ${response.userProfile.name}. I am ${bot.name}!`);
-});
-
 const BotConversationConfig = require('./conversation/conversation');
 const config = new BotConversationConfig(bot);
 
