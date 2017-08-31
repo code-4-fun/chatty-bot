@@ -4,9 +4,11 @@ const logger = require('../logger/logger');
 const TextMessage = require('viber-bot').Message.Text;
 const StickerMessage = require('viber-bot').Message.Sticker;
 const PictureMessage = require('viber-bot').Message.Picture;
+const RichMediaMessage  = require('viber-bot').Message.RichMedia;
 
 function ShopAssist(){
     this._request = require('request');
+    this.MAX_ITEMS_IN_ROW = 6;
 
     if (!process.env.AFFILIATE_ID || !process.env.AFFILIATE_TOKEN) {
         logger.debug('Could not find the Flipkart Affiliate ID details in your environment variables.');
@@ -32,11 +34,11 @@ ShopAssist.prototype.getDealOfTheDay = function(botResponse, message) {
             logger.debug(respBody);
             var deals = respBody.dotdList;
 
-            if(respBody.dotdList && respBody.dotdList.length > 0) {
+            if(deals && deals.length > 0) {
                 var dealsOfTheDay = [];
                 dealsOfTheDay.push(new TextMessage('There are total ' + deals.length + ' deals today'));
                 dealsOfTheDay.push(new StickerMessage(114423));
-
+                
                 deals.forEach(function(deal) {
                     logger.info('checking deal - ', deal);
                     var thumbnail = deal.imageUrls[0].url;
