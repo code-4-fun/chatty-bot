@@ -42,7 +42,7 @@ ShopAssist.prototype.getDealOfTheDay = function(botResponse, message) {
                 deals.forEach(function(deal) {
                     logger.info('checking deal - ', deal);
                     var thumbnail = deal.imageUrls[0].url;
-                    dealsOfTheDay.push(new PictureMessage(deal.url, deal.title, thumbnail));
+                    dealsOfTheDay.push(new PictureMessage(encodeURI(deal.url), deal.title, thumbnail));
                 });
                 botResponse.send(dealsOfTheDay);
             } else {
